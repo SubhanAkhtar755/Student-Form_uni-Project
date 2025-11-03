@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Student Registration Results</title>
+  <link rel="stylesheet" href="style.css">
+  <!-- Firebase SDK -->
+  <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore-compat.js"></script>
+  <script src="firebase.js"></script>
+</head>
+<body>
+  <nav class="navbar">
+    <div class="nav-brand">
+      <h1>Student Form</h1>
+    </div>
+    <div class="nav-actions">
+      <a href="index.html" class="result-btn">Back to Form</a>
+    </div>
+  </nav>
+
+  <div class="results-container">
+    <h2>📊 Student Registration Results</h2>
+    
+    <!-- Loading indicator -->
+    <div id="loading" style="text-align: center; padding: 2rem;">
+      <p>Loading student data...</p>
+    </div>
+    
+    <!-- Student Data Cards -->
+    <div class="cards-grid" id="cardsGrid" style="display: none;">
+      <!-- Cards will be dynamically generated here -->
+    </div>
+
+    <!-- Current Form Submission Card -->
+    <div class="current-submission" id="currentSubmission" style="display: none;">
+      <h3>✨ Your Latest Submission</h3>
+      <p><strong>👤 First Name:</strong> <span id="firstName"></span></p>
+      <p><strong>👤 Last Name:</strong> <span id="lastName"></span></p>
+      <p><strong>⚧ Gender:</strong> <span id="gender"></span></p>
+      <p><strong>📧 Email:</strong> <span id="email"></span></p>
+      <p><strong>📱 Phone:</strong> <span id="phone"></span></p>
+      <p><strong>🔑 Password:</strong> <span id="password"></span></p>
+    </div>
+  </div>
+
+  <script>
+    // Function to create student card HTML
+    function createStudentCard(student, index) {
+      const genderIcon = student.gender === 'Female' ? '👩‍🎓' : '👨‍🎓';
+      return `
+        <div class="student-card">
+          <h3>${genderIcon} Student #${index + 1}</h3>
+          <p><strong>👤 Name:</strong> ${student.firstName} ${student.lastName}</p>
+          <p><strong>⚧ Gender:</strong> ${student.gender}</p>
+          <p><strong>📧 Email:</strong> ${student.email}</p>
+          <p><strong>📱 Phone:</strong> ${student.phone}</p>
+          <p><strong>🔑 Password:</strong> ${student.password ? student.password : "N/A"}</p>
+          <p><strong>🕒 Submitted:</strong> ${new Date(student.timestamp?.toDate()).toLocaleString()}</p>
+        </div>
+      `;
+    }
+
+    // Function to display all students
+    function displayStudents(students) {
+      const cardsGrid = document.getElementById('cardsGrid');
+      const loading = document.getElementById('loading');
+      
+      if (students.length === 0) {
+        cardsGrid.innerHTML = '<p style="text-align: center; padding: 2rem; color: #666;">No student data found.</p>';
+      } else {
+        cardsGrid.innerHTML = students.map((student, index) => createStudentCard(student, index)).join('');
+      }
+      
+      loading.style.display = 'none';
+      cardsGrid.style.display = 'grid';
+    }
+
+    // Function to display current submission
+    function displayCurrentSubmission(student) {
+      if (student) {
+        document.getElementById("firstName").textContent = student.firstName || "N/A";
+        document.getElementById("lastName").textContent = student.lastName || "N/A";
+        document.getElementById("gender").textContent = student.gender || "N/A";
+        document.getElementById("email").textContent = student.email || "N/A";
+        document.getElementById("phone").textContent = student.phone || "N/A";
+        document.getElementById("password").textContent = student.password || "N/A";
+        document.getElementById("currentSubmission").style.display = "block";
+      }
+    }
+
+    // Load data when page loads
+    async function loadData() {
+      try {
+        // Get document ID from URL
+        const urlParams = new URLSearchParams(window.location.search);
+        const docId = urlParams.get('id');
+        
+        // Load all students
+        const allStudents = await getAllStudentData();
+        displayStudents(allStudents);
+        
+        // If there's a specific document ID, show that as current submission
+        if (docId) {
+          const currentStudent = await getStudentById(docId);
+          displayCurrentSubmission(currentStudent);
+        }
+        
+      } catch (error) {
+        console.error('Error loading data:', error);
+        document.getElementById('loading').innerHTML = '<p style="color: red;">Error loading data. Please try again.</p>';
+      }
+    }
+
+    // Initialize when page loads
+    document.addEventListener('DOMContentLoaded', loadData);
+  </script>
+</body>
+</html>

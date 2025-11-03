@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Student Registration Form</title>
+  <link rel="stylesheet" href="style.css">
+
+  <!-- Firebase SDK -->
+  <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore-compat.js"></script>
+  <script src="firebase.js"></script>
+</head>
+<body>
+  <nav class="navbar">
+    <div class="nav-brand">
+      <h1>Student Form</h1>
+    </div>
+    <div class="nav-actions">
+      <a href="result.html" class="result-btn">View Results</a>
+    </div>
+  </nav>
+
+  <div class="container">
+    <h2>Student Registration Form</h2>
+    <form id="studentForm">
+      <div class="form-row">
+        <div class="form-group">
+          <label>👤 First Name</label>
+          <input type="text" name="firstName" placeholder="Enter your first name" required>
+        </div>
+        <div class="form-group">
+          <label>👤 Last Name</label>
+          <input type="text" name="lastName" placeholder="Enter your last name" required>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label>⚧ Gender</label>
+        <div class="gender">
+          <label><input type="radio" name="gender" value="Male" required> <span>👨 Male</span></label>
+          <label><input type="radio" name="gender" value="Female"> <span>👩 Female</span></label>
+          <label><input type="radio" name="gender" value="Others"> <span>👤 Others</span></label>
+        </div>
+      </div>
+
+      <div class="form-row">
+        <div class="form-group">
+          <label>📧 Email</label>
+          <input type="email" name="email" placeholder="your.email@example.com" required>
+        </div>
+        <div class="form-group">
+          <label>📱 Phone Number</label>
+          <input type="tel" name="phone" placeholder="+92-300-1234567" required>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label>🔒 Password</label>
+        <input type="password" name="password" placeholder="Enter a strong password" required>
+      </div>
+
+      <div class="form-actions">
+        <button type="submit">🚀Submit</button>
+        <button type="button" id="readBtn" class="btn-secondary">👁️Read</button>
+        <button type="button" id="updateBtn" class="btn-warning">✏️Update</button>
+        <button type="button" id="deleteBtn" class="btn-danger">🗑️Delete</button>
+      </div>
+    </form>
+    <footer>© Talha Ansari</footer>
+  </div>
+
+  <script>
+    // Fill form fields with data
+    function fillFormWithData(student) {
+      document.querySelector('input[name="firstName"]').value = student.firstName || '';
+      document.querySelector('input[name="lastName"]').value = student.lastName || '';
+      document.querySelector('input[name="email"]').value = student.email || '';
+      document.querySelector('input[name="phone"]').value = student.phone || '';
+      document.querySelector('input[name="password"]').value = student.password || '';
+
+      if (student.gender) {
+        const genderRadio = document.querySelector(`input[name="gender"][value="${student.gender}"]`);
+        if (genderRadio) genderRadio.checked = true;
+      }
+    }
+
+    // Submit (Save)
+    document.getElementById('studentForm').addEventListener('submit', async function(e) {
+      e.preventDefault();
+
+      const formData = new FormData(this);
+      const studentData = {
+        firstName: formData.get('firstName'),
+        lastName: formData.get('lastName'),
+        gender: formData.get('gender'),
+        email: formData.get('email'),
+        phone: formData.get('phone'),
+        password: formData.get('password'),
+      };
+
+      try {
+        await saveStudentData(studentData);
+        alert('Student saved successfully!');
+        this.reset();
+      } catch (error) {
+        alert('Error saving data. Check console.');
+      }
+    });
+
+    // Read
+    document.getElementById('readBtn').addEventListener('click', async function() {
+      const password = document.querySelector('input[name="password"]').value.trim();
+      if (!password) return alert('Enter password first!');
+
+      const student = await getStudentByPassword(password);
+      if (!student) return alert('No student found with this password!');
+      fillFormWithData(student);
+      alert('Data loaded!');
+    });
+
+    // Update
+    document.getElementById('updateBtn').addEventListener('click', async function() {
+      const password = document.querySelector('input[name="password"]').value.trim();
+      if (!password) return alert('Enter password first!');
+
+      const formData = new FormData(document.getElementById('studentForm'));
+      const studentData = {
+        firstName: formData.get('firstName'),
+        lastName: formData.get('lastName'),
+        gender: formData.get('gender'),
+        email: formData.get('email'),
+        phone: formData.get('phone'),
+        password: formData.get('password'),
+      };
+
+      await updateStudentData(password, studentData);
+      alert('Data updated successfully!');
+      document.getElementById('studentForm').reset();
+    });
+
+    // Delete
+    document.getElementById('deleteBtn').addEventListener('click', async function() {
+      const password = document.querySelector('input[name="password"]').value.trim();
+      if (!password) return alert('Enter password first!');
+
+      if (confirm('Are you sure you want to delete this record?')) {
+        await deleteStudentData(password);
+        alert('Record deleted!');
+        document.getElementById('studentForm').reset();
+      }
+    });
+  </script>
+</body>
+</html>
