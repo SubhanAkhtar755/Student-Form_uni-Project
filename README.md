@@ -39,9 +39,10 @@ This project helped in understanding:
 
 ## 📸 Preview
 
-_The app provides a simple form to add new students and a card-based layout to view all entries._
+The app provides a simple form to add new students and a card-based layout to view all entries.
 
-*(Add screenshot here if available, e.g. `assets/preview.png`)*
+![University Project Preview](assets/uni-image.png)
+
 
 ---
 
@@ -80,6 +81,15 @@ Run the app — simply open index.html in your browser.
 ✅ Add authentication for admin access
 
 ✅ Improve UI with animations and responsive design
+
+
+### 👨‍💻 About This Project  
+This project was developed by **M. Subhan** as a freelance assignment for a university student.  
+It was built to meet academic requirements while maintaining clean code, responsive design, and Firebase integration.  
+
+💬 For collaborations or custom project development, feel free to reach out:  
+**Email:** muhammadsubhan192128@gmail.com
+**Portfolio:** https://m-subhan-portfolio.web.app
 
 ## 🪪 License
 
