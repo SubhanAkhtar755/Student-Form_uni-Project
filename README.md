@@ -41,7 +41,7 @@ This project helped in understanding:
 
 The app provides a simple form to add new students and a card-based layout to view all entries.
 
-![University Project Preview](assets/uni-image.png)
+![University Project Preview](https://github.com/SubhanAkhtar755/Student-Form_uni-Project/blob/master/uni-image.png)
 
 
 ---
