@@ -90,9 +90,3 @@ It was built to meet academic requirements while maintaining clean code, respons
  For collaborations or custom project development, feel free to reach out:  
 **Email:** muhammadsubhan192128@gmail.com
 **Portfolio:** https://m-subhan-portfolio.web.app
-
-## 🪪 License
-
-This project is open-source and available under the MIT License.
-
-You’re free to learn from, modify, and improve upon it.
