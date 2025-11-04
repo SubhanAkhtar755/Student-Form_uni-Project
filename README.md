@@ -1,22 +1,22 @@
-# 🎓 Student Form – University Mini Project
+#  Student Form – University Mini Project
 
 A simple web-based student management app built using **HTML**, **CSS**, **JavaScript**, and **Firebase Firestore**.  
 This project was created as a **pre-final year university mini project** to practice CRUD operations (Create, Read, Update, Delete) with Firebase.
 
 ---
 
-## 🚀 Features
+##  Features
 
-- 📋 **Add Student** — Enter first name, last name, gender, email, phone number, and password  
-- ✏️ **Edit Student** — Update student information directly from the interface  
-- ❌ **Delete Student** — Remove any student entry from the database  
-- 👀 **View Students** — Display all student records as interactive cards  
-- 🔥 **Firestore Integration** — All data is stored and managed in Firebase Firestore  
-- ⚡ **Instant Updates** — Real-time data synchronization without page reloads  
+-  **Add Student** — Enter first name, last name, gender, email, phone number, and password  
+-  **Edit Student** — Update student information directly from the interface  
+-  **Delete Student** — Remove any student entry from the database  
+-  **View Students** — Display all student records as interactive cards  
+-  **Firestore Integration** — All data is stored and managed in Firebase Firestore  
+-  **Instant Updates** — Real-time data synchronization without page reloads  
 
 ---
 
-## 🛠️ Tech Stack
+##  Tech Stack
 
 | Frontend | Backend / Database |
 |-----------|--------------------|
@@ -26,7 +26,7 @@ This project was created as a **pre-final year university mini project** to prac
 
 ---
 
-## 🧠 Learning Goals
+##  Learning Goals
 
 This project helped in understanding:
 - CRUD operations using Firebase Firestore  
@@ -46,7 +46,7 @@ The app provides a simple form to add new students and a card-based layout to vi
 
 ---
 
-## ⚙️ Setup Instructions
+##  Setup Instructions
 
 1. Clone this repository  
    ```bash
@@ -72,22 +72,22 @@ const firebaseConfig = {
 
 Run the app — simply open index.html in your browser.
 
-📚 Future Improvements
+- Future Improvements
 
-✅ Add form validation and error messages
+- Add form validation and error messages
 
-✅ Add search and filter options for students
+- Add search and filter options for students
 
-✅ Add authentication for admin access
+- Add authentication for admin access
 
-✅ Improve UI with animations and responsive design
+- Improve UI with animations and responsive design
 
 
-### 👨‍💻 About This Project  
+###  About This Project  
 This project was developed by **M. Subhan** as a freelance assignment for a university student.  
 It was built to meet academic requirements while maintaining clean code, responsive design, and Firebase integration.  
 
-💬 For collaborations or custom project development, feel free to reach out:  
+ For collaborations or custom project development, feel free to reach out:  
 **Email:** muhammadsubhan192128@gmail.com
 **Portfolio:** https://m-subhan-portfolio.web.app
 
